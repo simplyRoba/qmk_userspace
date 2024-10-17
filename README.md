@@ -2,7 +2,7 @@
 
 This is the splitkb userspace repository which allows for an external set of QMK keymaps with halcyon modules to be defined and compiled. This is useful for users who want to maintain their own keymaps without having to fork the splitkb QMK or vial repository.
 
-If you want to compile firmware without any modules you can also use the [main qmk_userspace repo](https://github.com/qmk/qmk_userspace) but it would require some extra setup.
+If you want to compile firmware without any modules you can also use the [main qmk_userspace repo](https://github.com/qmk/qmk_userspace).
 
 If the keyboard has not been merged yet to the main branch of QMK you may need to edit the workflow, for that see [Extra info](#extra-info)
 
@@ -17,12 +17,12 @@ If the keyboard has not been merged yet to the main branch of QMK you may need t
     * You can also create a new keymap using `qmk new-keymap -kb <your_keyboard> -km <your_keymap>`
     * Alternatively, add your keymap manually by placing it in the location specified above. This may be easier if you want to copy the default keymap and change it to your liking.
     * `layouts/<layout name>/<your keymap name>/keymap.*` is also supported if you prefer the layout system but has not been tested with our halcyon modules.
-1. Rename or copy the `users/default` folder to the same name as your keymap name if you want to use a module. You don't have to do this if you don't want to use any modules.
-1. Add your keymap(s) to the build by running `qmk userspace-add -kb <your_keyboard> -km <your_keymap> -e <halcyon_module>=1 -e TARGET=<filename>` or `qmk userspace-add -kb <your_keyboard> -km <your_keymap>` if you don't plan to use any modules.
+1. Create and add `USER_NAME := halcyon_modules` to your keymaps `rules.mk`
+1. Add your keymap(s) to the build by running `qmk userspace-add -kb <your_keyboard> -km <your_keymap> -e <halcyon_module>=1 -e TARGET=<filename>`.
     * This will automatically update your `qmk.json` file
-    * Corresponding `qmk userspace-remove -kb <your_keyboard> -km <your_keymap> -e <halcyon_module>=1 -e TARGET=<filename>` or `qmk userspace-remove -kb <your_keyboard> -km <your_keymap>` will delete it
+    * Corresponding `qmk userspace-remove -kb <your_keyboard> -km <your_keymap> -e <halcyon_module>=1 -e TARGET=<filename>`.
     * Listing the build targets can be done with with `qmk userspace-list`
-    * If you want to use a module.
+    * If you want to use a module:
         * For the filename make it so you can differentiate between the different firmwares for the modules. `kyria_rev4_default_encoder` for example.
         * The following options are available for the halcyon modules:
             * HLC_NONE, If you don't have a module installed but you do have a module on the other half.
