@@ -94,7 +94,7 @@ report_mouse_t pointing_device_task_combined_kb(report_mouse_t left_report, repo
 }
 
 // Kyria
-#if defined(PRODUCT_ID) && PRODUCT_ID == 0x7FCE
+#if PRODUCT_ID == 0x7FCE
 #ifdef RGB_MATRIX_ENABLE
 #include "rgb_matrix.h"
 led_config_t g_led_config = {
