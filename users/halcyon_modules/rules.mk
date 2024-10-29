@@ -2,6 +2,8 @@ CURRENT_DIR := $(dir $(realpath $(lastword $(MAKEFILE_LIST))))
 
 SRC += halcyon.c
 
+LTO_ENABLE ?= yes
+
 ifndef HLC_CIRQUE_TRACKPAD #add any other pointing devices here
   # Needed otherwise pointing devices will not work
   POINTING_DEVICE_ENABLE = yes

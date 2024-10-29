@@ -49,7 +49,6 @@
 
 // Always the same
 #define SPLIT_MODS_ENABLE
-#define SPLIT_TRANSPORT_MIRROR
 #define SPLIT_LED_STATE_ENABLE
 #define SPLIT_LAYER_STATE_ENABLE
 #ifndef HLC_ENCODER_A
