@@ -42,7 +42,6 @@ backlight_config_t backlight_config;
 
 static uint16_t lcd_surface_fb[135*240];
 
-bool backlight_off = false;
 int color_value = 0;
 
 led_t last_led_usb_state = {0};
@@ -243,7 +242,6 @@ void update_display(void) {
 
 // Quantum function
 void suspend_power_down_kb(void) { 
-    // backlight_suspend(); Disabled as it gives some weird behavior when rebooting the host
     qp_power(lcd, false);
     suspend_power_down_user();
 }
@@ -251,20 +249,7 @@ void suspend_power_down_kb(void) {
 // Quantum function
 void suspend_wakeup_init_kb(void) {
     qp_power(lcd, true);
-    // backlight_wakeup(); Disabled as it gives some weird behavior when rebooting the host
     suspend_wakeup_init_user();
-}
-
-// Timeout handling
-void backlight_wakeup(void) {
-    backlight_off = false;
-    backlight_enable();
-}
-
-// Timeout handling
-void backlight_suspend(void) {
-    backlight_off = true;
-    backlight_disable();
 }
 
 // Called from halcyon.c
@@ -296,14 +281,6 @@ bool module_post_init_kb(void) {
 
 // Called from halcyon.c
 bool display_module_housekeeping_task_kb(bool second_display) {    
-    // Backlight feature
-    if (backlight_off && last_input_activity_elapsed() <= QUANTUM_PAINTER_DISPLAY_TIMEOUT) {
-        backlight_wakeup();
-    }
-    if (!backlight_off && last_input_activity_elapsed() > QUANTUM_PAINTER_DISPLAY_TIMEOUT) {
-        backlight_suspend();
-    }
-
     if(!display_module_housekeeping_task_user(second_display)) { return false; }
 
     if(second_display) {
