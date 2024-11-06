@@ -5,7 +5,6 @@
 
 #pragma once
 
-#define HLC_SPI_DEVICE
 #define HLC_CIRQUE_TRACKPAD
 
 #define CIRQUE_PINNACLE_DIAMETER_MM 35

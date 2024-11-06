@@ -5,7 +5,6 @@
 
 #pragma once
 
-#define HLC_SPI_DEVICE
 #define HLC_TFT_DISPLAY
 
 // LCD Configuration
