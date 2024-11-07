@@ -43,6 +43,20 @@ module_t module;
     module_t module = hlc_tft_display;
 #endif
 
+bool backlight_off = false;
+
+// Timeout handling
+void backlight_wakeup(void) {
+    backlight_off = false;
+    backlight_enable();
+}
+
+// Timeout handling
+void backlight_suspend(void) {
+    backlight_off = true;
+    backlight_disable();
+}
+
 void module_sync_slave_handler(uint8_t initiator2target_buffer_size, const void* initiator2target_buffer, uint8_t target2initiator_buffer_size, void* target2initiator_buffer) {
     if (initiator2target_buffer_size == sizeof(module)) {
         memcpy(&module_master, initiator2target_buffer, sizeof(module_master));
@@ -76,6 +90,15 @@ void housekeeping_task_kb(void) {
             display_module_housekeeping_task_kb(false); // Otherwise be the main display
         }
     }
+    
+    // Backlight feature
+    if (backlight_off && last_input_activity_elapsed() <= HLC_BACKLIGHT_TIMEOUT) {
+        backlight_wakeup();
+    }
+    if (!backlight_off && last_input_activity_elapsed() > HLC_BACKLIGHT_TIMEOUT) {
+        backlight_suspend();
+    }
+
     module_housekeeping_task_kb();
 
     housekeeping_task_user();
