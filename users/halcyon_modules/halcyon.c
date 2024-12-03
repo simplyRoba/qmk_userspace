@@ -1,13 +1,9 @@
 // Copyright 2024 splitkb.com (support@splitkb.com)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include QMK_KEYBOARD_H
-
 #include "halcyon.h"
 #include "transactions.h"
-#include "print.h"
 #include "split_util.h"
-#include "pointing_device.h"
 
 __attribute__((weak)) bool module_post_init_kb(void) {
     return module_post_init_user();
@@ -49,6 +45,9 @@ bool backlight_off = false;
 void backlight_wakeup(void) {
     backlight_off = false;
     backlight_enable();
+    if (get_backlight_level() == 0) {
+        backlight_level(BACKLIGHT_LEVELS);
+    }
 }
 
 // Timeout handling
@@ -79,6 +78,8 @@ void housekeeping_task_kb(void) {
         static bool synced = 0;
         if(is_transport_connected() && synced == 0) {
             transaction_rpc_send(MODULE_SYNC, sizeof(module), &module); // Sync to slave
+            // Good moment to make sure the backlight wakes up after boot for both halves
+            backlight_wakeup();
             synced = 1;
         }
         display_module_housekeeping_task_kb(false); // Is master so can never be the second display

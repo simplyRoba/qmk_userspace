@@ -1,17 +1,10 @@
 // Copyright 2024 splitkb.com (support@splitkb.com)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include QMK_KEYBOARD_H
-
 #include "halcyon.h"
 #include "hlc_tft_display.h"
-#include "config.h"
 
-#include "qp.h"
-#include "qp_comms.h"
 #include "qp_surface.h"
-#include "qp_st77xx_opcodes.h"
-#include "split_util.h"
 #include <time.h>
 
 // Fonts mono2

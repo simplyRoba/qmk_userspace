@@ -1,11 +1,7 @@
 // Copyright 2024 splitkb.com (support@splitkb.com)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include QMK_KEYBOARD_H
-#include "util.h"
 #include "split_util.h"
-#include "matrix.h"
-#include "debounce.h"
 #include "atomic_util.h"
 
 #ifdef SPLIT_KEYBOARD

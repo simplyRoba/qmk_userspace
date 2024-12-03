@@ -4,21 +4,16 @@ SRC += halcyon.c
 
 LTO_ENABLE ?= yes
 
-ifndef HLC_CIRQUE_TRACKPAD #add any other pointing devices here
-  # Needed otherwise pointing devices will not work
-  POINTING_DEVICE_ENABLE = yes
-  # cirque defined here as otherwise sensitivity on slave is way too high
-  # may need to be changed when we start supporting other pointing devices
-  POINTING_DEVICE_DRIVER = cirque_pinnacle_spi 
-endif
+# May need to be changed when adding more pointing devices
+POINTING_DEVICE_ENABLE = yes
+POINTING_DEVICE_DRIVER = cirque_pinnacle_spi 
 
-ifndef HLC_TFT_DISPLAY #add any other displays here
-  # Needed otherwise displays will not work
-  QUANTUM_PAINTER_ENABLE = yes
-  QUANTUM_PAINTER_DRIVERS += st7789_spi
-  BACKLIGHT_ENABLE = yes
-  BACKLIGHT_DRIVER = pwm
-endif
+# May need to be changed when adding more displays
+QUANTUM_PAINTER_ENABLE = yes
+QUANTUM_PAINTER_DRIVERS += st7789_spi surface
+
+BACKLIGHT_ENABLE = yes
+BACKLIGHT_DRIVER = pwm
 
 ifdef HLC_ENCODER
   include $(CURRENT_DIR)/hlc_encoder/rules.mk
