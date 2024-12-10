@@ -12,12 +12,7 @@ If the keyboard has not been merged yet to the main branch of QMK you may need t
 1. Fork this repository
 1. Clone your fork to your local machine
 1. Enable userspace in QMK config using `qmk config user.overlay_dir="$(realpath qmk_userspace)"`
-1. Add a new keymap for your board using `qmk new-keymap`
-    * This will create a new keymap in the `keyboards` directory, in the same location that would normally be used in the main QMK repository. For example, if you wanted to add a keymap for the Halcyon Kyria, it will be created in `keyboards/splitkb/halcyon/kyria/<your keymap name>`
-    * You can also create a new keymap using `qmk new-keymap -kb <your_keyboard> -km <your_keymap>`
-    * Alternatively, add your keymap manually by placing it in the location specified above. This may be easier if you want to copy the default keymap and change it to your liking.
-    * `layouts/<layout name>/<your keymap name>/keymap.*` is also supported if you prefer the layout system but has not been tested with our halcyon modules.
-1. Create and add `USER_NAME := halcyon_modules` to your keymaps `rules.mk`
+1. Add a new keymap for your board by copy, pasting and renaming the `default_hlc` keymap within the `keyboards/splitkb/halcyon/$KB$/keymaps` folder.
 1. Add your keymap(s) to the build by running `qmk userspace-add -kb <your_keyboard> -km <your_keymap> -e <halcyon_module>=1 -e TARGET=<filename>`.
     * This will automatically update your `qmk.json` file
     * Corresponding `qmk userspace-remove -kb <your_keyboard> -km <your_keymap> -e <halcyon_module>=1 -e TARGET=<filename>`.
@@ -61,8 +56,8 @@ If you wish to point GitHub actions to a different repository, a different branc
 To override the `build` job, you can change the following parameters to use a different QMK repository or branch, this can be useful if you want to use a different QMK or vial branch for example:
 ```
     with:
-      qmk_repo: splitkb/qmk_firmware
-      qmk_ref: halcyon-kyria
+      qmk_repo: qmk/qmk_firmware
+      qmk_ref: master
 ```
 
 If you wish to manually manage `qmk_firmware` using git within the userspace repository, you can add `qmk_firmware` as a submodule in the userspace directory instead. GitHub Actions will automatically use the submodule at the pinned revision if it exists, otherwise it will use the default latest revision of `qmk_firmware` from the main repository. This will not work when using vial.
