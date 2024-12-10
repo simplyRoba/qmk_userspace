@@ -11,7 +11,7 @@ typedef enum module {
     hlc_tft_display
 } module_t;
 
-module_t module_master;
+extern module_t module_master;
 
 bool module_post_init_kb(void);
 bool module_housekeeping_task_kb(void);

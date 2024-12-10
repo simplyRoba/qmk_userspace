@@ -1,11 +1,7 @@
 // Copyright 2024 splitkb.com (support@splitkb.com)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include QMK_KEYBOARD_H
-#include "util.h"
 #include "split_util.h"
-#include "matrix.h"
-#include "debounce.h"
 #include "atomic_util.h"
 
 #ifdef SPLIT_KEYBOARD
@@ -128,7 +124,7 @@ void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
             // Populate the matrix row with the state of the col pin
             current_row_value |= pin_state ? 0 : row_shifter;
         }
-    } 
+    }
     // ↑↑↑ THIS HAS BEEN ADDED/CHANGED
 
     // Unselect row

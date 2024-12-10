@@ -2,13 +2,17 @@
 #include "hlc_tft_display/hlc_tft_display.h"
 
 // Include the QP api
-#include "qp.h"
+#include "qp_surface.h"
 
 // Add a font, this font is generated using the QP CLI tools (https://docs.qmk.fm/quantum_painter#quantum-painter-cli)
 #include "graphics/thintel15.qff.h"
 
 // Initialize the font
 static painter_font_handle_t thintel;
+
+// Setup painter devices
+painter_device_t lcd;
+painter_device_t lcd_surface;
 
 // This function is ran on bootup of the keyboard
 bool module_post_init_user(void) {
@@ -55,12 +59,12 @@ bool display_module_housekeeping_task_user(bool second_display) {
 
     // Make sure that the second display loads correctly, sometimes it takes a little while for the keyboard to know it has a second display.
     // So we reset the state and make it run again until the secondary display is drawn correctly
-    if(second_display && !second_display_set) { 
+    if(second_display && !second_display_set) {
         display_set = false;
     }
 
     // Move surface to lcd, this actually writes the content to the physical display
     qp_surface_draw(lcd_surface, lcd, 0, 0, 0);
-    
+
     return false;
 }
