@@ -124,7 +124,7 @@ void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
             // Populate the matrix row with the state of the col pin
             current_row_value |= pin_state ? 0 : row_shifter;
         }
-    } 
+    }
     // ↑↑↑ THIS HAS BEEN ADDED/CHANGED
 
     // Unselect row

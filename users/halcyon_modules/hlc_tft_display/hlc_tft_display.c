@@ -37,6 +37,9 @@ static uint16_t lcd_surface_fb[135*240];
 
 int color_value = 0;
 
+painter_device_t lcd;
+painter_device_t lcd_surface;
+
 led_t last_led_usb_state = {0};
 layer_state_t last_layer_state = {0};
 
@@ -81,7 +84,7 @@ void draw_grid() {
                 // Draw the filled cell inside the outline if it's alive
                 if (grid[y][x]) {
                     switch (color_value) {
-                    case 0: 
+                    case 0:
                         qp_rect(lcd_surface, left + OUTLINE_SIZE, top + OUTLINE_SIZE, right - OUTLINE_SIZE, bottom - OUTLINE_SIZE, HSV_LAYER_0, true);
                         break;
                     case 1:
@@ -93,7 +96,7 @@ void draw_grid() {
                     case 3:
                         qp_rect(lcd_surface, left + OUTLINE_SIZE, top + OUTLINE_SIZE, right - OUTLINE_SIZE, bottom - OUTLINE_SIZE, HSV_LAYER_3, true);
                         break;
-                    case 4: 
+                    case 4:
                         qp_rect(lcd_surface, left + OUTLINE_SIZE, top + OUTLINE_SIZE, right - OUTLINE_SIZE, bottom - OUTLINE_SIZE, HSV_LAYER_4, true);
                         break;
                     case 5:
@@ -188,10 +191,10 @@ void update_display(void) {
         last_led_usb_state = led_usb_state;
         first_run_led = true;
     }
-    
+
     if(last_layer_state != layer_state || first_run_layer == false) {
         switch (get_highest_layer(layer_state|default_layer_state)) {
-        case 0: 
+        case 0:
             layer_number = qp_load_image_mem(gfx_0);
             qp_drawimage_recolor(lcd_surface, 5, 5, layer_number, HSV_LAYER_0, HSV_BLACK);
             break;
@@ -207,7 +210,7 @@ void update_display(void) {
             layer_number = qp_load_image_mem(gfx_3);
             qp_drawimage_recolor(lcd_surface, 5, 5, layer_number, HSV_LAYER_3, HSV_BLACK);
             break;
-        case 4: 
+        case 4:
             layer_number = qp_load_image_mem(gfx_4);
             qp_drawimage_recolor(lcd_surface, 5, 5, layer_number, HSV_LAYER_4, HSV_BLACK);
             break;
@@ -234,7 +237,7 @@ void update_display(void) {
 }
 
 // Quantum function
-void suspend_power_down_kb(void) { 
+void suspend_power_down_kb(void) {
     qp_power(lcd, false);
     suspend_power_down_user();
 }
@@ -273,7 +276,7 @@ bool module_post_init_kb(void) {
 }
 
 // Called from halcyon.c
-bool display_module_housekeeping_task_kb(bool second_display) {    
+bool display_module_housekeeping_task_kb(bool second_display) {
     if(!display_module_housekeeping_task_user(second_display)) { return false; }
 
     if(second_display) {
@@ -288,7 +291,7 @@ bool display_module_housekeeping_task_kb(bool second_display) {
             second_display_set = true;
         }
 
-        if (timer_elapsed32(last_draw) >= 100) { // Throttle to 10 fps            
+        if (timer_elapsed32(last_draw) >= 100) { // Throttle to 10 fps
             draw_grid();
             update_grid();
 

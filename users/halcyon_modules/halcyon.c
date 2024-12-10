@@ -25,6 +25,7 @@ __attribute__((weak)) bool display_module_housekeeping_task_user(bool second_dis
     return true;
 }
 
+module_t module_master;
 module_t module;
 #ifdef HLC_NONE
     module_t module = hlc_none;
@@ -91,7 +92,7 @@ void housekeeping_task_kb(void) {
             display_module_housekeeping_task_kb(false); // Otherwise be the main display
         }
     }
-    
+
     // Backlight feature
     if (backlight_off && last_input_activity_elapsed() <= HLC_BACKLIGHT_TIMEOUT) {
         backlight_wakeup();
