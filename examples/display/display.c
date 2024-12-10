@@ -2,7 +2,7 @@
 #include "hlc_tft_display/hlc_tft_display.h"
 
 // Include the QP api
-#include "qp.h"
+#include "qp_surface.h"
 
 // Add a font, this font is generated using the QP CLI tools (https://docs.qmk.fm/quantum_painter#quantum-painter-cli)
 #include "graphics/thintel15.qff.h"
@@ -10,6 +10,7 @@
 // Initialize the font
 static painter_font_handle_t thintel;
 
+// Setup painter devices
 painter_device_t lcd;
 painter_device_t lcd_surface;
 
