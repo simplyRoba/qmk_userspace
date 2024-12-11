@@ -10,6 +10,7 @@ If the keyboard has not been merged yet to the main branch of QMK you may need t
 
 1. Run the normal `qmk setup` procedure if you haven't already done so -- see [QMK Docs](https://docs.qmk.fm/#/newbs) for details.
 1. Fork this repository
+1. If you have already forked the `qmk/qmk_userspace` repository before you can add this repository manually following the [steps below](#adding-splitkb-fork-to-an-existing-fork).
 1. Clone your fork to your local machine
 1. Enable userspace in QMK config using `qmk config user.overlay_dir="$(realpath qmk_userspace)"`
 1. Add a new keymap for your board by copy, pasting and renaming the `default_hlc` keymap within the `keyboards/splitkb/halcyon/$KB$/keymaps` folder.
@@ -69,3 +70,13 @@ This can also be used to control which fork is used.
 1. (First time only) `git submodule add https://github.com/qmk/qmk_firmware.git`
 1. (To update) `git submodule update --init --recursive`
 1. Commit your changes to your userspace repository
+
+
+## Adding splitkb fork to an existing fork
+
+If you have already forked the qmk/qmk_userspace repository before you may need to manually add the `halcyon` branch.
+
+1. Add a new upstream `git remote add upstream https://github.com/splitkb/qmk_userspace.git`
+1. Fetch the upstream `git fetch upstream`
+1. Create a new branch based on the upstream `git checkout -b halcyon upstream/halcyon`
+1. Make any changes you want and push it to github `git push -u origin halcyon`
