@@ -4,6 +4,7 @@
 #include "halcyon.h"
 #include "transactions.h"
 #include "split_util.h"
+#include "_wait.h"
 
 __attribute__((weak)) bool module_post_init_kb(void) {
     return module_post_init_user();
@@ -76,29 +77,34 @@ void keyboard_post_init_kb(void) {
 
 void housekeeping_task_kb(void) {
     if (is_keyboard_master()) {
-        static bool synced = 0;
-        if(is_transport_connected() && synced == 0) {
-            transaction_rpc_send(MODULE_SYNC, sizeof(module), &module); // Sync to slave
-            // Good moment to make sure the backlight wakes up after boot for both halves
-            backlight_wakeup();
-            synced = 1;
+        static bool synced = false;
+
+        if (!synced) {
+            if(is_transport_connected()) {
+                transaction_rpc_send(MODULE_SYNC, sizeof(module), &module); // Sync to slave
+                wait_ms(10);
+                // Good moment to make sure the backlight wakes up after boot for both halves
+                backlight_wakeup();
+                synced = true;
+            }
         }
+
         display_module_housekeeping_task_kb(false); // Is master so can never be the second display
     }
+
     if (!is_keyboard_master()) {
-        if (module_master == hlc_tft_display) {
-            display_module_housekeeping_task_kb(true); // If there is a display on master, become the second display
-        } else {
-            display_module_housekeeping_task_kb(false); // Otherwise be the main display
-        }
+        display_module_housekeeping_task_kb(module_master == hlc_tft_display);
     }
 
     // Backlight feature
-    if (backlight_off && last_input_activity_elapsed() <= HLC_BACKLIGHT_TIMEOUT) {
-        backlight_wakeup();
-    }
-    if (!backlight_off && last_input_activity_elapsed() > HLC_BACKLIGHT_TIMEOUT) {
-        backlight_suspend();
+    if (last_input_activity_elapsed() <= HLC_BACKLIGHT_TIMEOUT) {
+        if (backlight_off) {
+            backlight_wakeup();
+        }
+    } else {
+        if (!backlight_off) {
+            backlight_suspend();
+        }
     }
 
     module_housekeeping_task_kb();
