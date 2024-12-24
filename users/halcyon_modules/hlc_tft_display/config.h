@@ -28,6 +28,7 @@
 #define SURFACE_NUM_DEVICES 1
 
 // Backlight configuration
+#undef BACKLIGHT_PIN
 #define BACKLIGHT_PIN GP27
 
 // Timeout configuration

@@ -1,7 +1,3 @@
-CURRENT_DIR := $(dir $(realpath $(lastword $(MAKEFILE_LIST))))
-
-ERR_COLOR = $(strip $(call make_std_color,1))
-
 SRC += halcyon.c
 
 # May need to be changed when adding more pointing devices
@@ -16,15 +12,15 @@ BACKLIGHT_ENABLE = yes
 BACKLIGHT_DRIVER = pwm
 
 ifdef HLC_ENCODER
-  include $(CURRENT_DIR)/hlc_encoder/rules.mk
+  include $(USER_PATH)/hlc_encoder/rules.mk
 endif
 
 ifdef HLC_TFT_DISPLAY
-  include $(CURRENT_DIR)/hlc_tft_display/rules.mk
+  include $(USER_PATH)/hlc_tft_display/rules.mk
 endif
 
 ifdef HLC_CIRQUE_TRACKPAD
-  include $(CURRENT_DIR)/hlc_cirque_trackpad/rules.mk
+  include $(USER_PATH)/hlc_cirque_trackpad/rules.mk
 endif
 
 HLC_OPTIONS := $(HLC_NONE) $(HLC_CIRQUE_TRACKPAD) $(HLC_ENCODER) $(HLC_TFT_DISPLAY)

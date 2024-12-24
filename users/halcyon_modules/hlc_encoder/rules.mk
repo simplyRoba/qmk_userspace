@@ -1,4 +1,2 @@
-CURRENT_DIR := $(dir $(realpath $(lastword $(MAKEFILE_LIST))))
-
-SRC += $(CURRENT_DIR)/hlc_encoder.c
-CONFIG_H += $(CURRENT_DIR)/config.h
+SRC += $(USER_PATH)/hlc_encoder/hlc_encoder.c
+POST_CONFIG_H += $(USER_PATH)/hlc_encoder/config.h

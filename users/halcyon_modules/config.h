@@ -21,28 +21,19 @@
 #define BACKLIGHT_LEVELS 10
 #define BACKLIGHT_PWM_CHANNEL RP2040_PWM_CHANNEL_B
 
-#if !defined(HLC_TFT_DISPLAY)
-    #define BACKLIGHT_PIN GP2 //NOT CONNECTED
-#endif
-
-#if !defined(HLC_CIRQUE_TRACKPAD)
-    #define POINTING_DEVICE_CS_PIN GP2 //NOT CONNECTED
-#endif
-
 #include_next <halconf.h>
 
 //// Keyboard redefines
 
 // Always the same
+#define BACKLIGHT_PIN GP2 //NOT CONNECTED
+#define POINTING_DEVICE_CS_PIN GP2 //NOT CONNECTED
+#define HLC_ENCODER_A NO_PIN
+#define HLC_ENCODER_B NO_PIN
+
 #define SPLIT_MODS_ENABLE
 #define SPLIT_LED_STATE_ENABLE
 #define SPLIT_LAYER_STATE_ENABLE
-#ifndef HLC_ENCODER_A
-#   define HLC_ENCODER_A NO_PIN
-#endif
-#ifndef HLC_ENCODER_B
-#   define HLC_ENCODER_B NO_PIN
-#endif
 
 // Kyria
 #if PRODUCT_ID == 0x7FCE
