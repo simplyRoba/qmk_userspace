@@ -31,7 +31,6 @@ static const char *scroll =      "Scroll";
 static painter_font_handle_t Retron27;
 static painter_font_handle_t Retron27_underline;
 static painter_image_handle_t layer_number;
-backlight_config_t backlight_config;
 
 static uint16_t lcd_surface_fb[135*240];
 
