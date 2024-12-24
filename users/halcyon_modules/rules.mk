@@ -4,8 +4,6 @@ ERR_COLOR = $(strip $(call make_std_color,1))
 
 SRC += halcyon.c
 
-LTO_ENABLE ?= yes
-
 # May need to be changed when adding more pointing devices
 POINTING_DEVICE_ENABLE = yes
 POINTING_DEVICE_DRIVER = cirque_pinnacle_spi
