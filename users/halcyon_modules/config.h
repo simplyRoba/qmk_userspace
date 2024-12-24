@@ -5,13 +5,6 @@
 
 #define SPLIT_TRANSACTION_IDS_KB MODULE_SYNC
 
-#include_next <mcuconf.h>
-
-#undef RP_PWM_USE_PWM5
-#define RP_PWM_USE_PWM5 TRUE
-
-#define HAL_USE_PWM TRUE
-
 #define SPLIT_POINTING_ENABLE
 #define POINTING_DEVICE_COMBINED
 
@@ -20,8 +13,6 @@
 #define BACKLIGHT_PWM_DRIVER PWMD5
 #define BACKLIGHT_LEVELS 10
 #define BACKLIGHT_PWM_CHANNEL RP2040_PWM_CHANNEL_B
-
-#include_next <halconf.h>
 
 //// Keyboard redefines
 

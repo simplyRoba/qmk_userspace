@@ -11,6 +11,8 @@ QUANTUM_PAINTER_DRIVERS += st7789_spi surface
 BACKLIGHT_ENABLE = yes
 BACKLIGHT_DRIVER = pwm
 
+HALCONFDIR += $(USER_PATH)/halconf.h
+
 ifdef HLC_ENCODER
   include $(USER_PATH)/hlc_encoder/rules.mk
 endif
