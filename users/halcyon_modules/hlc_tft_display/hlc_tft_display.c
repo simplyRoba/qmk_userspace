@@ -5,7 +5,7 @@
 #include "hlc_tft_display.h"
 
 #include "qp_surface.h"
-#include <time.h>
+#include "hardware/structs/rosc.h"
 
 // Fonts mono2
 #include "graphics/fonts/Retron2000-27.qff.h"
@@ -53,6 +53,15 @@ layer_state_t last_layer_state = {0};
 bool grid[GRID_HEIGHT][GRID_WIDTH];  // Current state
 bool new_grid[GRID_HEIGHT][GRID_WIDTH];  // Next state
 bool changed_grid[GRID_HEIGHT][GRID_WIDTH]; // Tracks changed cells
+
+uint32_t get_random_32bit(void) {
+    uint32_t random_value = 0;
+    for (int i = 0; i < 32; i++) {
+        wait_ms(1);
+        random_value = (random_value << 1) | (rosc_hw->randombit & 1);
+    }
+    return random_value;
+}
 
 void init_grid() {
     // Initialize grid with alive cells
@@ -285,7 +294,7 @@ bool display_module_housekeeping_task_kb(bool second_display) {
         static uint32_t previous_matrix_activity_time = 0;
 
         if(!second_display_set) {
-            srand(time(NULL));
+            srand(get_random_32bit());
             init_grid();
             color_value = rand() % 8;
             second_display_set = true;
