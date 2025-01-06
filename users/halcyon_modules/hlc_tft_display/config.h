@@ -13,7 +13,6 @@
 #define LCD_DC_PIN GP16
 #define LCD_SPI_DIVISOR 0
 #define LCD_SPI_MODE 3
-#define LCD_WAIT_TIME 150
 #define LCD_WIDTH 135
 #define LCD_HEIGHT 240
 #define LCD_ROTATION QP_ROTATION_0
