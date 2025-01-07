@@ -47,3 +47,25 @@
         {k9A, k9B, k9C, k9D, k9E, KC_NO, KC_NO} \
     }
 #endif
+
+// Corne
+#if PRODUCT_ID == 0x3A07
+    #undef ENCODER_A_PINS
+    #define ENCODER_A_PINS { GP24, HLC_ENCODER_A }
+    #undef ENCODER_B_PINS
+    #define ENCODER_B_PINS { GP23, HLC_ENCODER_B }
+    #undef MATRIX_ROWS
+    #define MATRIX_ROWS 10
+    #define LAYOUT_split_3x6_3_hlc(k0A, k0B, k0C, k0D, k0E, k0F, k5F, k5E, k5D, k5C, k5B, k5A, k1A, k1B, k1C, k1D, k1E, k1F, k6F, k6E, k6D, k6C, k6B, k6A, k2A, k2B, k2C, k2D, k2E, k2F, k7F, k7E, k7D, k7C, k7B, k7A, k3D, k3E, k3F, k8F, k8E, k8D, k4A, k4B, k4C, k4D, k4E, k9A, k9B, k9C, k9D, k9E) { \
+        {k0A, k0B, k0C, k0D, k0E, k0F}, \
+        {k1A, k1B, k1C, k1D, k1E, k1F}, \
+        {k2A, k2B, k2C, k2D, k2E, k2F}, \
+        {KC_NO, KC_NO, KC_NO, k3D, k3E, k3F}, \
+        {k4A, k4B, k4C, k4D, k4E, KC_NO}, \
+        {k5A, k5B, k5C, k5D, k5E, k5F}, \
+        {k6A, k6B, k6C, k6D, k6E, k6F}, \
+        {k7A, k7B, k7C, k7D, k7E, k7F}, \
+        {KC_NO, KC_NO, KC_NO, k8D, k8E, k8F}, \
+        {k9A, k9B, k9C, k9D, k9E, KC_NO} \
+    }
+#endif
