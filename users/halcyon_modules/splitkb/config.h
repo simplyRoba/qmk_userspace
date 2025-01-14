@@ -49,7 +49,7 @@
 #endif
 
 // Elora
-#if PRODUCT_ID == 0xA392
+#if defined(KEYBOARD_splitkb_halcyon_elora_rev2)
     #undef ENCODER_A_PINS
     #define ENCODER_A_PINS { GP22, HLC_ENCODER_A }
     #undef ENCODER_B_PINS

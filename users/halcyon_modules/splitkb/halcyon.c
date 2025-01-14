@@ -179,7 +179,7 @@ const matrix_row_t matrix_mask[] = {
 #endif
 
 // Elora
-#if PRODUCT_ID == 0xA392
+#if defined(KEYBOARD_splitkb_halcyon_elora_rev2)
 #ifdef RGB_MATRIX_ENABLE
 #include "rgb_matrix.h"
 led_config_t g_led_config = {
