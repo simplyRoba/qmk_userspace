@@ -27,7 +27,7 @@
 #define SPLIT_LAYER_STATE_ENABLE
 
 // Kyria
-#if PRODUCT_ID == 0x7FCE
+#if defined(KEYBOARD_splitkb_halcyon_kyria_rev4)
     #undef ENCODER_A_PINS
     #define ENCODER_A_PINS { GP23, HLC_ENCODER_A }
     #undef ENCODER_B_PINS
