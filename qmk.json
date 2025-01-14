@@ -70,7 +70,7 @@
             "vial_hlc",
             {
                 "HLC_TFT_DISPLAY": "1",
-                "TARGET": "halcyon_elora_rev2_vial_hlc_display"
+                "TARGET": "splitkb_halcyon_elora_rev2_vial_hlc_display"
             }
         ],
         [
@@ -78,7 +78,7 @@
             "vial_hlc",
             {
                 "HLC_ENCODER": "1",
-                "TARGET": "halcyon_elora_rev2_vial_hlc_encoder"
+                "TARGET": "splitkb_halcyon_elora_rev2_vial_hlc_encoder"
             }
         ],
         [
@@ -86,7 +86,7 @@
             "vial_hlc",
             {
                 "HLC_CIRQUE_TRACKPAD": "1",
-                "TARGET": "halcyon_elora_rev2_vial_hlc_cirque_trackpad"
+                "TARGET": "splitkb_halcyon_elora_rev2_vial_hlc_cirque_trackpad"
             }
         ],
         [
@@ -94,7 +94,7 @@
             "vial_hlc",
             {
                 "HLC_NONE": "1",
-                "TARGET": "halcyon_elora_rev2_vial_hlc"
+                "TARGET": "splitkb_halcyon_elora_rev2_vial_hlc"
             }
         ],
         [
@@ -102,7 +102,7 @@
             "default_hlc",
             {
                 "HLC_TFT_DISPLAY": "1",
-                "TARGET": "halcyon_elora_rev2_default_hlc_display"
+                "TARGET": "splitkb_halcyon_elora_rev2_default_hlc_display"
             }
         ],
         [
@@ -110,7 +110,7 @@
             "default_hlc",
             {
                 "HLC_ENCODER": "1",
-                "TARGET": "halcyon_elora_rev2_default_hlc_encoder"
+                "TARGET": "splitkb_halcyon_elora_rev2_default_hlc_encoder"
             }
         ],
         [
@@ -118,7 +118,7 @@
             "default_hlc",
             {
                 "HLC_CIRQUE_TRACKPAD": "1",
-                "TARGET": "halcyon_elora_rev2_default_hlc_cirque_trackpad"
+                "TARGET": "splitkb_halcyon_elora_rev2_default_hlc_cirque_trackpad"
             }
         ],
         [
@@ -126,7 +126,7 @@
             "default_hlc",
             {
                 "HLC_NONE": "1",
-                "TARGET": "halcyon_elora_rev2_default_hlc"
+                "TARGET": "splitkb_halcyon_elora_rev2_default_hlc"
             }
         ]
     ]
