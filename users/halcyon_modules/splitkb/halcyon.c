@@ -1,9 +1,14 @@
 // Copyright 2024 splitkb.com (support@splitkb.com)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+#include QMK_KEYBOARD_H
 #include "halcyon.h"
 #include "transactions.h"
 #include "split_util.h"
+#include "_wait.h"
+
+__attribute__((weak)) void module_suspend_power_down_kb(void);
+__attribute__((weak)) void module_suspend_wakeup_init_kb(void);
 
 __attribute__((weak)) bool module_post_init_kb(void) {
     return module_post_init_user();
@@ -63,6 +68,18 @@ void module_sync_slave_handler(uint8_t initiator2target_buffer_size, const void*
     }
 }
 
+void suspend_power_down_kb(void) {
+    module_suspend_power_down_kb();
+
+    suspend_power_down_user();
+}
+
+void suspend_wakeup_init_kb(void) {
+    module_suspend_wakeup_init_kb();
+
+    suspend_wakeup_init_user();
+}
+
 void keyboard_post_init_kb(void) {
     // Register module sync split transaction
     transaction_register_rpc(MODULE_SYNC, module_sync_slave_handler);
@@ -76,29 +93,34 @@ void keyboard_post_init_kb(void) {
 
 void housekeeping_task_kb(void) {
     if (is_keyboard_master()) {
-        static bool synced = 0;
-        if(is_transport_connected() && synced == 0) {
-            transaction_rpc_send(MODULE_SYNC, sizeof(module), &module); // Sync to slave
-            // Good moment to make sure the backlight wakes up after boot for both halves
-            backlight_wakeup();
-            synced = 1;
+        static bool synced = false;
+
+        if (!synced) {
+            if(is_transport_connected()) {
+                transaction_rpc_send(MODULE_SYNC, sizeof(module), &module); // Sync to slave
+                wait_ms(10);
+                // Good moment to make sure the backlight wakes up after boot for both halves
+                backlight_wakeup();
+                synced = true;
+            }
         }
+
         display_module_housekeeping_task_kb(false); // Is master so can never be the second display
     }
+
     if (!is_keyboard_master()) {
-        if (module_master == hlc_tft_display) {
-            display_module_housekeeping_task_kb(true); // If there is a display on master, become the second display
-        } else {
-            display_module_housekeeping_task_kb(false); // Otherwise be the main display
-        }
+        display_module_housekeeping_task_kb(module_master == hlc_tft_display);
     }
 
     // Backlight feature
-    if (backlight_off && last_input_activity_elapsed() <= HLC_BACKLIGHT_TIMEOUT) {
-        backlight_wakeup();
-    }
-    if (!backlight_off && last_input_activity_elapsed() > HLC_BACKLIGHT_TIMEOUT) {
-        backlight_suspend();
+    if (last_input_activity_elapsed() <= HLC_BACKLIGHT_TIMEOUT) {
+        if (backlight_off) {
+            backlight_wakeup();
+        }
+    } else {
+        if (!backlight_off) {
+            backlight_suspend();
+        }
     }
 
     module_housekeeping_task_kb();
@@ -119,7 +141,7 @@ report_mouse_t pointing_device_task_combined_kb(report_mouse_t left_report, repo
 }
 
 // Kyria
-#if PRODUCT_ID == 0x7FCE
+#if defined(KEYBOARD_splitkb_halcyon_kyria_rev4)
 #ifdef RGB_MATRIX_ENABLE
 #include "rgb_matrix.h"
 led_config_t g_led_config = {
