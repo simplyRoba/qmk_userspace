@@ -4,7 +4,6 @@
 #include "halcyon.h"
 #include "hlc_tft_display.h"
 
-#include "qp_surface.h"
 #include "hardware/structs/rosc.h"
 
 // Fonts mono2
@@ -244,16 +243,14 @@ void update_display(void) {
     }
 }
 
-// Quantum function
-void suspend_power_down_kb(void) {
+// Called from halcyon.c
+void module_suspend_power_down_kb(void) {
     qp_power(lcd, false);
-    suspend_power_down_user();
 }
 
-// Quantum function
-void suspend_wakeup_init_kb(void) {
+// Called from halcyon.c
+void module_suspend_wakeup_init_kb(void) {
     qp_power(lcd, true);
-    suspend_wakeup_init_user();
 }
 
 // Called from halcyon.c
