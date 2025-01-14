@@ -1,10 +1,14 @@
 // Copyright 2024 splitkb.com (support@splitkb.com)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+#include QMK_KEYBOARD_H
 #include "halcyon.h"
 #include "transactions.h"
 #include "split_util.h"
 #include "_wait.h"
+
+__attribute__((weak)) void module_suspend_power_down_kb(void);
+__attribute__((weak)) void module_suspend_wakeup_init_kb(void);
 
 __attribute__((weak)) bool module_post_init_kb(void) {
     return module_post_init_user();
@@ -62,6 +66,18 @@ void module_sync_slave_handler(uint8_t initiator2target_buffer_size, const void*
     if (initiator2target_buffer_size == sizeof(module)) {
         memcpy(&module_master, initiator2target_buffer, sizeof(module_master));
     }
+}
+
+void suspend_power_down_kb(void) {
+    module_suspend_power_down_kb();
+
+    suspend_power_down_user();
+}
+
+void suspend_wakeup_init_kb(void) {
+    module_suspend_wakeup_init_kb();
+
+    suspend_wakeup_init_user();
 }
 
 void keyboard_post_init_kb(void) {
