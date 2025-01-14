@@ -179,7 +179,7 @@ const matrix_row_t matrix_mask[] = {
 #endif
 
 // Lily58
-#if PRODUCT_ID == 0xEA1D
+#if defined(KEYBOARD_splitkb_halcyon_lily58_rev2)
 #ifdef RGB_MATRIX_ENABLE
 #include "rgb_matrix.h"
 led_config_t g_led_config = {

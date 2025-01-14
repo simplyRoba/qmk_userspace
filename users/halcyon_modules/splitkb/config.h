@@ -49,7 +49,7 @@
 #endif
 
 // Lily58
-#if PRODUCT_ID == 0xEA1D
+#if defined(KEYBOARD_splitkb_halcyon_lily58_rev2)
     #undef ENCODER_A_PINS
     #define ENCODER_A_PINS { GP23, HLC_ENCODER_A }
     #undef ENCODER_B_PINS
