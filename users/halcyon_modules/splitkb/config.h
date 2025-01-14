@@ -49,7 +49,7 @@
 #endif
 
 // Corne
-#if PRODUCT_ID == 0x3A07
+#if defined(KEYBOARD_splitkb_halcyon_corne_rev2)
     #undef ENCODER_A_PINS
     #define ENCODER_A_PINS { GP24, HLC_ENCODER_A }
     #undef ENCODER_B_PINS
