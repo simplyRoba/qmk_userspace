@@ -47,3 +47,25 @@
         {k9A, k9B, k9C, k9D, k9E, KC_NO, KC_NO} \
     }
 #endif
+
+// Ferris
+#if defined(KEYBOARD_splitkb_halcyon_ferris_rev1)
+    #undef ENCODER_A_PINS
+    #define ENCODER_A_PINS { HLC_ENCODER_A }
+    #undef ENCODER_B_PINS
+    #define ENCODER_B_PINS { HLC_ENCODER_B }
+    #undef MATRIX_ROWS
+    #define MATRIX_ROWS 10
+    #define LAYOUT_ferris_hlc(k0E, k0D, k0C, k0B, k0A, k5A, k5B, k5C, k5D, k5E, k1E, k1D, k1C, k1B, k1A, k6A, k6B, k6C, k6D, k6E, k2E, k2D, k2C, k2B, k2A, k7A, k7B, k7C, k7D, k7E, k3B, k3A, k8A, k8B, k4A, k4B, k4C, k4D, k4E, k9A, k9B, k9C, k9D, k9E) { \
+	 {k0A, k0B, k0C, k0D, k0E}, \
+	 {k1A, k1B, k1C, k1D, k1E}, \
+	 {k2A, k2B, k2C, k2D, k2E}, \
+	 {k3A, k3B, KC_NO, KC_NO, KC_NO}, \
+     {k4A, k4B, k4C, k4D, k4E}, \
+	 {k5A, k5B, k5C, k5D, k5E}, \
+	 {k6A, k6B, k6C, k6D, k6E}, \
+	 {k7A, k7B, k7C, k7D, k7E}, \
+	 {k8A, k8B, KC_NO, KC_NO, KC_NO}, \
+     {k9A, k9B, k9C, k9D, k9E} \
+}
+#endif
