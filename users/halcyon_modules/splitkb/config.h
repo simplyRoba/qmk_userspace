@@ -56,7 +56,7 @@
     #define ENCODER_B_PINS { GP22, HLC_ENCODER_B }
     #undef MATRIX_ROWS
     #define MATRIX_ROWS 12
-    #define LAYOUT_hlc(k0A, k0B, k0C, k0D, k0E, k0F, k6F, k6E, k6D, k6C, k6B, k6A, k1A, k1B, k1C, k1D, k1E, k1F, k7F, k7E, k7D, k7C, k7B, k7A, k2A, k2B, k2C, k2D, k2E, k2F, k8F, k8E, k8D, k8C, k8B, k8A, k3A, k3B, k3C, k3D, k3E, k3F, k4B, k10B, k9F, k9E, k9D, k9C, k9B, k9A, k4C, k4D, k4E, k4F, k10F, k10E, k10D, k10C, k5A, k5B, k5C, k5D, k5E, k11A, k11B, k11C, k11D, k11E) { \
+    #define LAYOUT_lily58_hlc(k0A, k0B, k0C, k0D, k0E, k0F, k6F, k6E, k6D, k6C, k6B, k6A, k1A, k1B, k1C, k1D, k1E, k1F, k7F, k7E, k7D, k7C, k7B, k7A, k2A, k2B, k2C, k2D, k2E, k2F, k8F, k8E, k8D, k8C, k8B, k8A, k3A, k3B, k3C, k3D, k3E, k3F, k4B, k10B, k9F, k9E, k9D, k9C, k9B, k9A, k4C, k4D, k4E, k4F, k10F, k10E, k10D, k10C, k5A, k5B, k5C, k5D, k5E, k11A, k11B, k11C, k11D, k11E) { \
         {k0A, k0B, k0C, k0D, k0E, k0F}, \
         {k1A, k1B, k1C, k1D, k1E, k1F}, \
         {k2A, k2B, k2C, k2D, k2E, k2F}, \
