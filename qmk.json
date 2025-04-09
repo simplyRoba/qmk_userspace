@@ -192,10 +192,6 @@
                 "HLC_NONE": "1",
                 "TARGET": "splitkb_halcyon_corne_rev2_default_hlc"
             }
-        ]
-    ]
-}
-
         ],
         [
             "splitkb/halcyon/lily58/rev2",
@@ -260,10 +256,6 @@
                 "HLC_NONE": "1",
                 "TARGET": "splitkb_halcyon_lily58_rev2_default_hlc"
             }
-        ]
-    ]
-}
-
         ],
         [
             "splitkb/halcyon/ferris/rev1",
