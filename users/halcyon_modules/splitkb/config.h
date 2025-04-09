@@ -94,7 +94,6 @@
     }
 #endif
 
-
 // Lily58
 #if defined(KEYBOARD_splitkb_halcyon_lily58_rev2)
     #undef ENCODER_A_PINS
