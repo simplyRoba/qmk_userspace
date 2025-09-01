@@ -3,26 +3,26 @@
     "build_targets": [
         [
             "splitkb/halcyon/kyria/rev4",
-            "vial_hlc",
+            "hrm_cags",
             {
                 "HLC_TFT_DISPLAY": "1",
-                "TARGET": "splitkb_halcyon_kyria_rev4_vial_hlc_display"
+                "TARGET": "splitkb_halcyon_kyria_rev4_hrm_cags_display"
             }
         ],
         [
             "splitkb/halcyon/kyria/rev4",
-            "vial_hlc",
+            "hrm_cags",
             {
                 "HLC_ENCODER": "1",
-                "TARGET": "splitkb_halcyon_kyria_rev4_vial_hlc_encoder"
+                "TARGET": "splitkb_halcyon_kyria_rev4_hrm_cags_encoder"
             }
         ],
         [
             "splitkb/halcyon/kyria/rev4",
-            "vial_hlc",
+            "hrm_cags",
             {
                 "HLC_NONE": "1",
-                "TARGET": "splitkb_halcyon_kyria_rev4_vial_hlc"
+                "TARGET": "splitkb_halcyon_kyria_rev4_hrm_cags"
             }
         ]
     ]
