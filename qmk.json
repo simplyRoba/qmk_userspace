@@ -24,6 +24,13 @@
                 "HLC_NONE": "1",
                 "TARGET": "splitkb_halcyon_kyria_rev4_hrm_cags"
             }
+        ],
+        [
+            "keebart/sofle_choc_pro",
+            "hrm_cags",
+            {
+                "TARGET": "keebart_sofle_choc_pro_hrm_cags"
+            }
         ]
     ]
 }
