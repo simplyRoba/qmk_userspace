@@ -1,7 +1,7 @@
 {
   "version": 1,
   "keyboard": "splitkb/halcyon/kyria/rev4",
-  "keymap": "hrm_cags",
+  "keymap": "vial_hrm_cags",
   "layout": "LAYOUT_split_3x6_5_hlc",
   "author": "simplyroba",
   "layers": [

@@ -3,7 +3,7 @@
     "build_targets": [
         [
             "splitkb/halcyon/kyria/rev4",
-            "hrm_cags",
+            "vial_hrm_cags",
             {
                 "HLC_TFT_DISPLAY": "1",
                 "TARGET": "splitkb_halcyon_kyria_rev4_vial_hrm_cags_display"
@@ -11,7 +11,7 @@
         ],
         [
             "splitkb/halcyon/kyria/rev4",
-            "hrm_cags",
+            "vial_hrm_cags",
             {
                 "HLC_ENCODER": "1",
                 "TARGET": "splitkb_halcyon_kyria_rev4_vial_hrm_cags_encoder"
@@ -19,7 +19,7 @@
         ],
         [
             "splitkb/halcyon/kyria/rev4",
-            "hrm_cags",
+            "vial_hrm_cags",
             {
                 "HLC_NONE": "1",
                 "TARGET": "splitkb_halcyon_kyria_rev4_vial_hrm_cags"
@@ -27,7 +27,7 @@
         ],
         [
             "keebart/sofle_choc_pro",
-            "hrm_cags",
+            "vial_hrm_cags",
             {
                 "TARGET": "keebart_sofle_choc_pro_vial_hrm_cags"
             }
