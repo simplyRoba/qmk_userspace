@@ -10,14 +10,21 @@ permissions:
   contents: write
 
 jobs:
-  build:
+  build-qmk:
     name: 'QMK Userspace Build'
     uses: qmk/.github/.github/workflows/qmk_userspace_build.yml@main
     with:
       qmk_repo: qmk/qmk_firmware
       qmk_ref: master
-    #   qmk_repo: vial-kb/vial-qmk
-    #   qmk_ref: vial
+
+  build-vial:
+    name: 'QMK Userspace Build'
+    uses: qmk/.github/.github/workflows/qmk_userspace_build.yml@main
+    with:
+      qmk_repo: vial-kb/vial-qmk
+      qmk_ref: vial
+      # use content of qmk_vial.jdon to build vial firmware
+      preparation_command: mv -f qmk_vial.json qmk.json
 
   publish:
     name: 'QMK Userspace Publish'
