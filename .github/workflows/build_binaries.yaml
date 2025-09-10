@@ -30,4 +30,4 @@ jobs:
     name: 'QMK Userspace Publish'
     uses: qmk/.github/.github/workflows/qmk_userspace_publish.yml@main
     if: always() && !cancelled()
-    needs: build
+    needs: [build-qmk, build-vial]
