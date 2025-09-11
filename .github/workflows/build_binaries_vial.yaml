@@ -1,4 +1,4 @@
-name: Build QMK firmware
+name: Build Vial firmware
 
 on:
   push:
@@ -11,14 +11,16 @@ permissions:
 
 jobs:
   build:
-    name: 'QMK Userspace Build'
+    name: 'Vial Userspace Build'
     uses: qmk/.github/.github/workflows/qmk_userspace_build.yml@main
     with:
-      qmk_repo: qmk/qmk_firmware
-      qmk_ref: master
+      qmk_repo: vial-kb/vial-qmk
+      qmk_ref: vial
+      # overwrite content of qmk.json with vial.json to build vial firmware - will not be committed anyways
+      preparation_command: mv -f vial.json qmk.json
 
   publish:
-    name: 'QMK Userspace Publish'
+    name: 'Vial Userspace Publish'
     uses: qmk/.github/.github/workflows/qmk_userspace_publish.yml@main
     if: always() && !cancelled()
     needs: build
