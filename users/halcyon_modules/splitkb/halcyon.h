@@ -10,7 +10,8 @@ typedef enum module {
     hlc_none,
     hlc_cirque_trackpad,
     hlc_encoder,
-    hlc_tft_display
+    hlc_tft_display,
+    hrm_display,
 } module_t;
 
 extern module_t module_master;
