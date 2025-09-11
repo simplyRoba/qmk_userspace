@@ -23,8 +23,8 @@ jobs:
     with:
       qmk_repo: vial-kb/vial-qmk
       qmk_ref: vial
-      # use content of qmk_vial.jdon to build vial firmware
-      preparation_command: mv -f qmk_vial.json qmk.json
+      # overwrite content of qmk.json with vial.json to build vial firmware - will not be committed anyways
+      preparation_command: mv -f vial.json qmk.json
 
   publish:
     name: 'QMK Userspace Publish'
