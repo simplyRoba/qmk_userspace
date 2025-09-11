@@ -13,6 +13,14 @@
             "splitkb/halcyon/kyria/rev4",
             "vial_hrm_cags",
             {
+                "HRM_DISPLAY": "1",
+                "TARGET": "splitkb_halcyon_kyria_rev4_vial_hrm_cags_display(HRM)"
+            }
+        ],
+        [
+            "splitkb/halcyon/kyria/rev4",
+            "vial_hrm_cags",
+            {
                 "HLC_ENCODER": "1",
                 "TARGET": "splitkb_halcyon_kyria_rev4_vial_hrm_cags_encoder"
             }
