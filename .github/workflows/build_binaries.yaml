@@ -22,3 +22,5 @@ jobs:
     uses: qmk/.github/.github/workflows/qmk_userspace_publish.yml@main
     if: always() && !cancelled()
     needs: build
+    with:
+      release_name: latest-qmk
