@@ -8,17 +8,15 @@
 #include "graphics/fonts/Retron2000-27.qff.h"
 #include "graphics/fonts/Retron2000-underline-27.qff.h"
 
-// Numbers mono2
-#include "graphics/numbers/0.qgf.h"
-#include "graphics/numbers/1.qgf.h"
-#include "graphics/numbers/2.qgf.h"
-#include "graphics/numbers/3.qgf.h"
-#include "graphics/numbers/4.qgf.h"
-#include "graphics/numbers/5.qgf.h"
-#include "graphics/numbers/6.qgf.h"
-#include "graphics/numbers/7.qgf.h"
-#include "graphics/numbers/8.qgf.h"
-#include "graphics/numbers/9.qgf.h"
+// Layer icons mono2
+#include "graphics/numbers/B.qgf.h"
+#include "graphics/numbers/C.qgf.h"
+#include "graphics/numbers/G.qgf.h"
+#include "graphics/numbers/N.qgf.h"
+#include "graphics/numbers/F.qgf.h"
+#include "graphics/numbers/navi.qgf.h"
+#include "graphics/numbers/M.qgf.h"
+#include "graphics/numbers/S.qgf.h"
 #include "graphics/numbers/undef.qgf.h"
 
 static const char *caps = "Caps";
@@ -57,35 +55,35 @@ void update_display(void) {
     if(last_layer_state != layer_state || first_run_layer == false) {
         switch (get_highest_layer(layer_state|default_layer_state)) {
         case 0:
-            layer_number = qp_load_image_mem(gfx_0);
+            layer_number = qp_load_image_mem(gfx_B);
             qp_drawimage_recolor(lcd_surface, 5, 5, layer_number, HSV_LAYER_0, HSV_BLACK);
             break;
         case 1:
-            layer_number = qp_load_image_mem(gfx_1);
+            layer_number = qp_load_image_mem(gfx_C);
             qp_drawimage_recolor(lcd_surface, 5, 5, layer_number, HSV_LAYER_1, HSV_BLACK);
             break;
         case 2:
-            layer_number = qp_load_image_mem(gfx_2);
+            layer_number = qp_load_image_mem(gfx_G);
             qp_drawimage_recolor(lcd_surface, 5, 5, layer_number, HSV_LAYER_2, HSV_BLACK);
             break;
         case 3:
-            layer_number = qp_load_image_mem(gfx_3);
+            layer_number = qp_load_image_mem(gfx_N);
             qp_drawimage_recolor(lcd_surface, 5, 5, layer_number, HSV_LAYER_3, HSV_BLACK);
             break;
         case 4:
-            layer_number = qp_load_image_mem(gfx_4);
+            layer_number = qp_load_image_mem(gfx_F);
             qp_drawimage_recolor(lcd_surface, 5, 5, layer_number, HSV_LAYER_4, HSV_BLACK);
             break;
         case 5:
-            layer_number = qp_load_image_mem(gfx_5);
+            layer_number = qp_load_image_mem(gfx_navi);
             qp_drawimage_recolor(lcd_surface, 5, 5, layer_number, HSV_LAYER_5, HSV_BLACK);
             break;
         case 6:
-            layer_number = qp_load_image_mem(gfx_6);
+            layer_number = qp_load_image_mem(gfx_M);
             qp_drawimage_recolor(lcd_surface, 5, 5, layer_number, HSV_LAYER_6, HSV_BLACK);
             break;
         case 7:
-            layer_number = qp_load_image_mem(gfx_7);
+            layer_number = qp_load_image_mem(gfx_S);
             qp_drawimage_recolor(lcd_surface, 5, 5, layer_number, HSV_LAYER_7, HSV_BLACK);
             break;
         default:

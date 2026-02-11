@@ -4,8 +4,8 @@
 enum layers {
     BASE = 0,   // default
     CST1,       // custom 1
-    CST2,       // custom 2
-    SYMB,       // numbers & symbols
+    GAME,       // gaming
+    NUMB,       // numbers & symbols
     FUNC,       // function
     NAVI,       // navigation
     MDIA,       // light & media
@@ -17,7 +17,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_Q,         KC_W,         KC_E,         KC_R,         KC_T,                                                                KC_Y,            KC_U,         KC_I,         KC_O,         KC_P,            KC_BSLS,
         KC_ESC,  LCTL_T(KC_A), LALT_T(KC_S), LGUI_T(KC_D), LSFT_T(KC_F), HYPR_T(KC_G),                                                        MEH_T(KC_H),     RSFT_T(KC_J), RGUI_T(KC_K), RALT_T(KC_L), RCTL_T(KC_SCLN), KC_QUOT,
         KC_BSPC, KC_Z,         KC_X,         KC_C,         KC_V,         LT(MDIA,KC_B),   KC_MINS,         KC_UP,   KC_DOWN, KC_EQL,          KC_N,            KC_M,         KC_COMM,      KC_DOT,       KC_SLSH,         KC_BSPC,
-                                             CW_TOGG,      KC_LBRC,      LT(NAVI,KC_ENT), LT(SYMB,KC_SPC), KC_RGHT, KC_LEFT, LT(SYMB,KC_SPC), LT(FUNC,KC_ENT), KC_RBRC,      MO(SYST),
+                                             CW_TOGG,      KC_LBRC,      LT(NAVI,KC_ENT), LT(NUMB,KC_SPC), KC_RGHT, KC_LEFT, LT(NUMB,KC_SPC), LT(FUNC,KC_ENT), KC_RBRC,      MO(SYST),
         KC_ENT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_ENT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     ),
     [CST1] = LAYOUT_split_3x6_5_hlc(
@@ -27,14 +27,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
-    [CST2] = LAYOUT_split_3x6_5_hlc(
+    [GAME] = LAYOUT_split_3x6_5_hlc(
         _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
-    [SYMB] = LAYOUT_split_3x6_5_hlc(
+    [NUMB] = LAYOUT_split_3x6_5_hlc(
         KC_GRV,  KC_1,       KC_2,       KC_3,       KC_4,       KC_5,                                           KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       KC_MINS,
         _______, KC_LCTL,    KC_LALT,    KC_LGUI,    KC_LSFT,    KC_HYPR,                                        KC_MEH,     KC_RSFT,    KC_RGUI,    KC_RALT,    KC_RCTL,    KC_EQL,
         _______, LSFT(KC_1), LSFT(KC_2), LSFT(KC_3), LSFT(KC_4), LSFT(KC_5), _______, _______, _______, _______, LSFT(KC_6), LSFT(KC_7), LSFT(KC_8), LSFT(KC_9), LSFT(KC_0), _______,
@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [SYST] = LAYOUT_split_3x6_5_hlc(
         _______, _______, _______, DF(BASE), _______, _______,                                     _______, _______, _______, _______, _______, QK_REBOOT,
         _______, _______, _______, DF(CST1), BL_UP,   BL_TOGG,                                     _______, _______, _______, _______, _______, QK_BOOTLOADER,
-        _______, _______, _______, DF(CST2), BL_DOWN, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, QK_CLEAR_EEPROM,
+        _______, _______, _______, DF(GAME), BL_DOWN, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, QK_CLEAR_EEPROM,
                                    _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     )
@@ -75,8 +75,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [BASE] = {ENCODER_CCW_CW(KC_DOWN, KC_UP), ENCODER_CCW_CW(KC_DOWN, KC_UP), ENCODER_CCW_CW(KC_DOWN, KC_UP), ENCODER_CCW_CW(KC_DOWN, KC_UP)},
     [CST1] = {ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______)},
-    [CST2] = {ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______)},
-    [SYMB] = {ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______)},
+    [GAME] = {ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______)},
+    [NUMB] = {ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______)},
     [FUNC] = {ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______)},
     [NAVI] = {ENCODER_CCW_CW(KC_LEFT, KC_RGHT), ENCODER_CCW_CW(KC_LEFT, KC_RGHT), ENCODER_CCW_CW(KC_LEFT, KC_RGHT), ENCODER_CCW_CW(KC_LEFT, KC_RGHT)},
     [MDIA] = {ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______)},

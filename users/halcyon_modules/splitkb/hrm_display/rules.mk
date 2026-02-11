@@ -5,15 +5,13 @@ POST_CONFIG_H += $(USER_PATH)/splitkb/hrm_display/config.h
 SRC += $(USER_PATH)/splitkb/hrm_display/graphics/fonts/Retron2000-27.qff.c \
        $(USER_PATH)/splitkb/hrm_display/graphics/fonts/Retron2000-underline-27.qff.c
 
-# Numbers in image format
-SRC += $(USER_PATH)/splitkb/hrm_display/graphics/numbers/0.qgf.c \
-	   $(USER_PATH)/splitkb/hrm_display/graphics/numbers/1.qgf.c \
-	   $(USER_PATH)/splitkb/hrm_display/graphics/numbers/2.qgf.c \
-	   $(USER_PATH)/splitkb/hrm_display/graphics/numbers/3.qgf.c \
-	   $(USER_PATH)/splitkb/hrm_display/graphics/numbers/4.qgf.c \
-	   $(USER_PATH)/splitkb/hrm_display/graphics/numbers/5.qgf.c \
-	   $(USER_PATH)/splitkb/hrm_display/graphics/numbers/6.qgf.c \
-	   $(USER_PATH)/splitkb/hrm_display/graphics/numbers/7.qgf.c \
-	   $(USER_PATH)/splitkb/hrm_display/graphics/numbers/8.qgf.c \
-	   $(USER_PATH)/splitkb/hrm_display/graphics/numbers/9.qgf.c \
+# Layer icons in image format
+SRC += $(USER_PATH)/splitkb/hrm_display/graphics/numbers/B.qgf.c \
+	   $(USER_PATH)/splitkb/hrm_display/graphics/numbers/C.qgf.c \
+	   $(USER_PATH)/splitkb/hrm_display/graphics/numbers/G.qgf.c \
+	   $(USER_PATH)/splitkb/hrm_display/graphics/numbers/N.qgf.c \
+	   $(USER_PATH)/splitkb/hrm_display/graphics/numbers/F.qgf.c \
+	   $(USER_PATH)/splitkb/hrm_display/graphics/numbers/navi.qgf.c \
+	   $(USER_PATH)/splitkb/hrm_display/graphics/numbers/M.qgf.c \
+	   $(USER_PATH)/splitkb/hrm_display/graphics/numbers/S.qgf.c \
 	   $(USER_PATH)/splitkb/hrm_display/graphics/numbers/undef.qgf.c
