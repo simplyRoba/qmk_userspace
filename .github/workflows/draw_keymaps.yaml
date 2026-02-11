@@ -1,0 +1,66 @@
+name: Draw keymaps
+
+on:
+  push:
+    branches: ['main']
+    paths:
+      - 'keyboards/**/keymap.c'
+      - 'layouts/**'
+      - 'scripts/c2json.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  draw:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install keymap-drawer
+        run: pip install keymap-drawer
+
+      - name: Generate SVGs
+        run: |
+          draw_keymap() {
+            local keymap_c="$1" keyboard="$2" keymap_name="$3" layout_json="$4" output="$5"
+            local json_file="/tmp/${output%.svg}.json"
+
+            python3 scripts/c2json.py "$keymap_c" -kb "$keyboard" -km "$keymap_name" > "$json_file"
+            layer_names=$(python3 -c "import json,sys; d=json.load(open('$json_file')); print(' '.join(d['layer_names']))")
+
+            keymap parse -q "$json_file" -l $layer_names \
+              | keymap draw - -j "$layout_json" -o "$output"
+
+            echo "Generated $output"
+          }
+
+          draw_keymap \
+            keyboards/splitkb/halcyon/kyria/keymaps/hrm_cags/keymap.c \
+            splitkb/halcyon/kyria hrm_cags layouts/kyria.json \
+            kyria_hrm_cags.svg
+
+          draw_keymap \
+            keyboards/splitkb/halcyon/kyria/keymaps/default_hlc/keymap.c \
+            splitkb/halcyon/kyria default_hlc layouts/kyria.json \
+            kyria_default_hlc.svg
+
+          draw_keymap \
+            keyboards/keebart/sofle_choc_pro/keymaps/hrm_cags/keymap.c \
+            keebart/sofle_choc_pro hrm_cags layouts/sofle.json \
+            sofle_hrm_cags.svg
+
+      - name: Upload SVGs to latest-qmk release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          for svg in *.svg; do
+            gh release delete-asset latest-qmk "$svg" --yes 2>/dev/null || true
+            gh release upload latest-qmk "$svg"
+          done
