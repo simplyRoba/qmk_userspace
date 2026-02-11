@@ -1,12 +1,10 @@
 name: Draw keymaps
 
 on:
-  push:
+  workflow_run:
+    workflows: ['Build QMK firmware']
+    types: [completed]
     branches: ['main']
-    paths:
-      - 'keyboards/**/keymap.c'
-      - 'layouts/**'
-      - 'scripts/c2json.py'
   workflow_dispatch:
 
 permissions:
@@ -15,6 +13,7 @@ permissions:
 jobs:
   draw:
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     steps:
       - uses: actions/checkout@v4
 
