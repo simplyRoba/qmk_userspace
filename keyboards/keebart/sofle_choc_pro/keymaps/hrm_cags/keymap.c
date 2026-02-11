@@ -4,8 +4,8 @@
 enum layers {
     BASE = 0,   // default
     CST1,       // custom 1
-    CST2,       // custom 2
-    SYMB,       // numbers & symbols
+    GAME,       // gaming
+    NUMB,       // numbers & symbols
     FUNC,       // function
     NAVI,       // navigation
     MDIA,       // light & media
@@ -27,14 +27,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,_______,_______,_______,_______,_______, _______, _______,  _______,_______,_______,_______,_______,_______,
                         _______,_______,_______,_______, _______, _______,  _______,_______,_______,_______
     ),
-    [CST2] = LAYOUT_split_4x6_5(
+    [GAME] = LAYOUT_split_4x6_5(
         _______,_______,_______,_______,_______,_______,                    _______,_______,_______,_______,_______,_______,
         _______,_______,_______,_______,_______,_______,                    _______,_______,_______,_______,_______,_______,
         _______,_______,_______,_______,_______,_______,                    _______,_______,_______,_______,_______,_______,
         _______,_______,_______,_______,_______,_______, _______, _______,  _______,_______,_______,_______,_______,_______,
                         _______,_______,_______,_______, _______, _______,  _______,_______,_______,_______
     ),
-    [SYMB] = LAYOUT_split_4x6_5(
+    [NUMB] = LAYOUT_split_4x6_5(
         _______,      _______,    _______,    _______,    _______,    _______,                      _______,    _______,    _______,    _______,    _______,    _______,
         LSFT(KC_GRV), LSFT(KC_1), LSFT(KC_2), LSFT(KC_3), LSFT(KC_4), LSFT(KC_5),                   LSFT(KC_6), LSFT(KC_7), LSFT(KC_8), LSFT(KC_9), LSFT(KC_0), LSFT(KC_MINS),
         _______,      KC_LCTL,    KC_LALT,    KC_LGUI,    KC_LSFT,    KC_HYPR,                      KC_MEH,     KC_RSFT,    KC_RGUI,    KC_RALT,    KC_RCTL,    KC_EQL,
@@ -75,8 +75,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [BASE] = { ENCODER_CCW_CW(KC_LEFT, KC_RGHT), ENCODER_CCW_CW(KC_DOWN, KC_UP) },
     [CST1] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______) },
-    [CST2] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______) },
-    [SYMB] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______) },
+    [GAME] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______) },
+    [NUMB] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______) },
     [FUNC] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______) },
     [NAVI] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______) },
     [MDIA] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______) },

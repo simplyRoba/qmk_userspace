@@ -26,8 +26,12 @@ ifdef HLC_CIRQUE_TRACKPAD
   include $(USER_PATH)/splitkb/hlc_cirque_trackpad/rules.mk
 endif
 
-HLC_OPTIONS := $(HLC_NONE) $(HLC_CIRQUE_TRACKPAD) $(HLC_ENCODER) $(HLC_TFT_DISPLAY)
+ifdef HRM_DISPLAY
+  include $(USER_PATH)/splitkb/hrm_display/rules.mk
+endif
+
+HLC_OPTIONS := $(HLC_NONE) $(HLC_CIRQUE_TRACKPAD) $(HLC_ENCODER) $(HLC_TFT_DISPLAY) $(HRM_DISPLAY)
 
 ifeq ($(filter 1, $(HLC_OPTIONS)), )
-$(error Halcyon_modules used but wrong or no module specified. Please specify one by adding `-e <module_name>=1` to your compile command where <module_name> can be: HLC_NONE, HLC_CIRQUE_TRACKPAD, HLC_ENCODER or HLC_TFT_DISPLAY)
+$(error Halcyon_modules used but wrong or no module specified. Please specify one by adding `-e <module_name>=1` to your compile command where <module_name> can be: HLC_NONE, HLC_CIRQUE_TRACKPAD, HLC_ENCODER, HLC_TFT_DISPLAY, HRM_DISPLAY)
 endif

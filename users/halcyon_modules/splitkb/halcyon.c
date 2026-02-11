@@ -44,6 +44,9 @@ module_t module;
 #ifdef HLC_TFT_DISPLAY
     module_t module = hlc_tft_display;
 #endif
+#ifdef HRM_DISPLAY
+    module_t module = hrm_display;
+#endif
 
 bool backlight_off = false;
 
