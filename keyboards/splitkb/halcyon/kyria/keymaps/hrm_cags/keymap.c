@@ -17,7 +17,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_Q,         KC_W,         KC_E,         KC_R,         KC_T,                                                                KC_Y,            KC_U,         KC_I,         KC_O,         KC_P,            KC_BSLS,
         KC_ESC,  LCTL_T(KC_A), LALT_T(KC_S), LGUI_T(KC_D), LSFT_T(KC_F), HYPR_T(KC_G),                                                        MEH_T(KC_H),     RSFT_T(KC_J), RGUI_T(KC_K), RALT_T(KC_L), RCTL_T(KC_SCLN), KC_QUOT,
         KC_BSPC, KC_Z,         KC_X,         KC_C,         KC_V,         LT(MDIA,KC_B),   KC_MINS,         KC_UP,   KC_DOWN, KC_EQL,          KC_N,            KC_M,         KC_COMM,      KC_DOT,       KC_SLSH,         KC_BSPC,
-                                             CW_TOGG,      KC_LBRC,      LT(NAVI,KC_ENT), LT(SYMB,KC_SPC), KC_RGHT, KC_LEFT, LT(SYMB,KC_SPC), LT(FUNC,KC_ENT), KC_RBRC,      MO(SYST),
+                                             KC_CAPS,      KC_LBRC,      LT(NAVI,KC_ENT), LT(SYMB,KC_SPC), KC_RGHT, KC_LEFT, LT(SYMB,KC_SPC), LT(FUNC,KC_ENT), KC_RBRC,      MO(SYST),
         KC_ENT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_ENT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     ),
     [CST1] = LAYOUT_split_3x6_5_hlc(
