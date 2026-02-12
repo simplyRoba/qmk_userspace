@@ -4,18 +4,18 @@
 #include "halcyon.h"
 #include "hrm_display.h"
 
-// Letter layer icons
-#include "graphics/numbers/B.qgf.h"
-#include "graphics/numbers/C.qgf.h"
-#include "graphics/numbers/G.qgf.h"
-#include "graphics/numbers/N.qgf.h"
-#include "graphics/numbers/F.qgf.h"
-#include "graphics/numbers/navi.qgf.h"
-#include "graphics/numbers/M.qgf.h"
-#include "graphics/numbers/S.qgf.h"
+// Layer icons
+#include "graphics/layers/B.qgf.h"
+#include "graphics/layers/C.qgf.h"
+#include "graphics/layers/G.qgf.h"
+#include "graphics/layers/N.qgf.h"
+#include "graphics/layers/F.qgf.h"
+#include "graphics/layers/navi.qgf.h"
+#include "graphics/layers/M.qgf.h"
+#include "graphics/layers/S.qgf.h"
 
 // Undefined layer icon (from stock hlc_tft_display)
-#include "hlc_tft_display/graphics/numbers/undef.qgf.h"
+#include "hlc_tft_display/graphics/layers/undef.qgf.h"
 
 // Modifier icons (CAGS + caps lock)
 #include "graphics/modifiers/ctrl.qgf.h"
@@ -45,7 +45,7 @@ bool display_module_housekeeping_task_user(bool second_display) {
     static bool first_run = false;
 
     if (!second_display) {
-        // Layer letter icon
+        // Layer icon
         if (last_layer_state != layer_state || !first_run) {
             painter_image_handle_t layer_number;
 

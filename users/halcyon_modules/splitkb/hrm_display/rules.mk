@@ -7,15 +7,15 @@ POST_CONFIG_H += $(USER_PATH)/splitkb/hrm_display/config.h
 # Custom display implementation (overrides _user functions)
 SRC += $(USER_PATH)/splitkb/hrm_display/hrm_display.c
 
-# Letter layer icons
-SRC += $(USER_PATH)/splitkb/hrm_display/graphics/numbers/B.qgf.c \
-       $(USER_PATH)/splitkb/hrm_display/graphics/numbers/C.qgf.c \
-       $(USER_PATH)/splitkb/hrm_display/graphics/numbers/G.qgf.c \
-       $(USER_PATH)/splitkb/hrm_display/graphics/numbers/N.qgf.c \
-       $(USER_PATH)/splitkb/hrm_display/graphics/numbers/F.qgf.c \
-       $(USER_PATH)/splitkb/hrm_display/graphics/numbers/navi.qgf.c \
-       $(USER_PATH)/splitkb/hrm_display/graphics/numbers/M.qgf.c \
-       $(USER_PATH)/splitkb/hrm_display/graphics/numbers/S.qgf.c
+# Layer icons
+SRC += $(USER_PATH)/splitkb/hrm_display/graphics/layers/B.qgf.c \
+       $(USER_PATH)/splitkb/hrm_display/graphics/layers/C.qgf.c \
+       $(USER_PATH)/splitkb/hrm_display/graphics/layers/G.qgf.c \
+       $(USER_PATH)/splitkb/hrm_display/graphics/layers/N.qgf.c \
+       $(USER_PATH)/splitkb/hrm_display/graphics/layers/F.qgf.c \
+       $(USER_PATH)/splitkb/hrm_display/graphics/layers/navi.qgf.c \
+       $(USER_PATH)/splitkb/hrm_display/graphics/layers/M.qgf.c \
+       $(USER_PATH)/splitkb/hrm_display/graphics/layers/S.qgf.c
 
 # Modifier icons (CAGS)
 SRC += $(USER_PATH)/splitkb/hrm_display/graphics/modifiers/ctrl.qgf.c \
