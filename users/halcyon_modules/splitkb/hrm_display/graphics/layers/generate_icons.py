@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate 75x105 mono layer icons from Lucide SVGs.
+"""Generate 110x110 mono layer icons from Lucide SVGs.
 
 Lucide icons are MIT licensed: https://github.com/lucide-icons/lucide
 """
@@ -9,8 +9,7 @@ import io
 import cairosvg
 from PIL import Image
 
-WIDTH = 75
-HEIGHT = 105
+SIZE = 110
 PADDING = 10  # px padding inside the icon
 RENDER_SCALE = 4  # render at 4x then downscale for antialiasing
 
@@ -29,18 +28,18 @@ ICONS = {
 }
 
 
-def svg_to_mono_png(svg_path, out_path, width=WIDTH, height=HEIGHT, padding=PADDING):
+def svg_to_mono_png(svg_path, out_path, size=SIZE, padding=PADDING):
     """Convert a Lucide SVG to a white-on-black mono PNG at the target size."""
     with open(svg_path, "r") as f:
         svg_data = f.read()
 
-    # Replace currentColor with white, increase stroke width for visibility
+    # Replace currentColor with white
     svg_data = svg_data.replace('stroke="currentColor"', 'stroke="white"')
     svg_data = svg_data.replace('fill="none"', 'fill="none"')
     svg_data = svg_data.replace('stroke-width="2"', 'stroke-width="2"')
 
-    # Render SVG as square at high resolution (Lucide icons are 24x24 viewBox)
-    render_size = max(width, height) * RENDER_SCALE
+    # Render SVG at high resolution (Lucide icons are 24x24 viewBox)
+    render_size = size * RENDER_SCALE
     png_data = cairosvg.svg2png(
         bytestring=svg_data.encode(),
         output_width=render_size,
@@ -51,20 +50,16 @@ def svg_to_mono_png(svg_path, out_path, width=WIDTH, height=HEIGHT, padding=PADD
     # Open and convert to grayscale
     img = Image.open(io.BytesIO(png_data)).convert("L")
 
-    # Resize icon to fit within padded area, maintaining aspect ratio
-    inner_w = width - 2 * padding
-    inner_h = height - 2 * padding
-    icon_size = min(inner_w, inner_h)  # square icon
-    img = img.resize((icon_size, icon_size), Image.LANCZOS)
+    # Resize icon to fit within padded area
+    inner = size - 2 * padding
+    img = img.resize((inner, inner), Image.LANCZOS)
 
     # Threshold to pure black/white
     img = img.point(lambda x: 255 if x > 80 else 0)
 
     # Center on canvas
-    canvas = Image.new("L", (width, height), 0)
-    x_offset = (width - icon_size) // 2
-    y_offset = (height - icon_size) // 2
-    canvas.paste(img, (x_offset, y_offset))
+    canvas = Image.new("L", (size, size), 0)
+    canvas.paste(img, (padding, padding))
 
     canvas.save(out_path)
     print(f"Saved {out_path}")
