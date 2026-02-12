@@ -16,9 +16,9 @@
 #define HSV_NUM_ON 142, 191, 245
 
 #define HSV_LAYER_0 0, 0, 160
-#define HSV_LAYER_3 0, 82, 255
 #define HSV_LAYER_1 23, 89, 255
-#define HSV_LAYER_2 43, 71, 255
+#define HSV_LAYER_2 0, 82, 255
+#define HSV_LAYER_3 43, 71, 255
 #define HSV_LAYER_4 77, 64, 255
 #define HSV_LAYER_6 131, 99, 255
 #define HSV_LAYER_7 154, 94, 255
