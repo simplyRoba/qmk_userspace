@@ -4,11 +4,7 @@
 #include "halcyon.h"
 #include "hrm_display.h"
 
-// Fonts mono2
-#include "graphics/fonts/Retron2000-27.qff.h"
-#include "graphics/fonts/Retron2000-underline-27.qff.h"
-
-// Layer icons mono2
+// Letter layer icons
 #include "graphics/numbers/B.qgf.h"
 #include "graphics/numbers/C.qgf.h"
 #include "graphics/numbers/G.qgf.h"
@@ -17,134 +13,134 @@
 #include "graphics/numbers/navi.qgf.h"
 #include "graphics/numbers/M.qgf.h"
 #include "graphics/numbers/S.qgf.h"
-#include "graphics/numbers/undef.qgf.h"
 
-static const char *caps = "Caps";
+// Undefined layer icon (from stock hlc_tft_display)
+#include "hlc_tft_display/graphics/numbers/undef.qgf.h"
 
-static painter_font_handle_t Retron27;
-static painter_font_handle_t Retron27_underline;
-static painter_image_handle_t layer_number;
+// Modifier icons (CAGS + caps lock)
+#include "graphics/modifiers/ctrl.qgf.h"
+#include "graphics/modifiers/alt.qgf.h"
+#include "graphics/modifiers/gui.qgf.h"
+#include "graphics/modifiers/shift.qgf.h"
+#include "graphics/modifiers/caps.qgf.h"
 
-static uint8_t lcd_surface_fb[SURFACE_REQUIRED_BUFFER_BYTE_SIZE(135, 240, 16)];
+// Modifier icon colors (HSV, all values 0-255)
+#define HSV_MOD_ON  0, 0, 255
+#define HSV_MOD_OFF 0, 0, 40
 
-painter_device_t lcd;
-painter_device_t lcd_surface;
+// Modifier icon positions (2x2 grid, 52x52 icons)
+#define MOD_COL1_X 10
+#define MOD_COL2_X 73
+#define MOD_ROW1_Y 118
+#define MOD_ROW2_Y 178
 
-led_t last_led_usb_state = {0};
-layer_state_t last_layer_state = {0};
+bool module_post_init_user(void) {
+    return false;
+}
 
-void update_display(void) {
-    static bool first_run_led = false;
-    static bool first_run_layer = false;
+bool display_module_housekeeping_task_user(bool second_display) {
+    static layer_state_t last_layer_state = {0};
+    static uint8_t last_mods = 0xFF;
+    static bool last_caps = false;
+    static bool first_run = false;
 
-    if(first_run_layer == false) {
-        // Load fonts
-        Retron27 = qp_load_font_mem(font_Retron2000_27);
-        Retron27_underline = qp_load_font_mem(font_Retron2000_underline_27);
-    }
+    if (!second_display) {
+        // Layer letter icon
+        if (last_layer_state != layer_state || !first_run) {
+            painter_image_handle_t layer_number;
 
-    if(last_led_usb_state.raw != host_keyboard_led_state().raw || first_run_led == false) {
-        led_t led_usb_state = host_keyboard_led_state();
+            switch (get_highest_layer(layer_state | default_layer_state)) {
+            case 0:
+                layer_number = qp_load_image_mem(gfx_B);
+                qp_drawimage_recolor(lcd_surface, 30, 5, layer_number, HSV_LAYER_0, HSV_BLACK);
+                break;
+            case 1:
+                layer_number = qp_load_image_mem(gfx_C);
+                qp_drawimage_recolor(lcd_surface, 30, 5, layer_number, HSV_LAYER_1, HSV_BLACK);
+                break;
+            case 2:
+                layer_number = qp_load_image_mem(gfx_G);
+                qp_drawimage_recolor(lcd_surface, 30, 5, layer_number, HSV_LAYER_2, HSV_BLACK);
+                break;
+            case 3:
+                layer_number = qp_load_image_mem(gfx_N);
+                qp_drawimage_recolor(lcd_surface, 30, 5, layer_number, HSV_LAYER_3, HSV_BLACK);
+                break;
+            case 4:
+                layer_number = qp_load_image_mem(gfx_F);
+                qp_drawimage_recolor(lcd_surface, 30, 5, layer_number, HSV_LAYER_4, HSV_BLACK);
+                break;
+            case 5:
+                layer_number = qp_load_image_mem(gfx_navi);
+                qp_drawimage_recolor(lcd_surface, 30, 5, layer_number, HSV_LAYER_5, HSV_BLACK);
+                break;
+            case 6:
+                layer_number = qp_load_image_mem(gfx_M);
+                qp_drawimage_recolor(lcd_surface, 30, 5, layer_number, HSV_LAYER_6, HSV_BLACK);
+                break;
+            case 7:
+                layer_number = qp_load_image_mem(gfx_S);
+                qp_drawimage_recolor(lcd_surface, 30, 5, layer_number, HSV_LAYER_7, HSV_BLACK);
+                break;
+            default:
+                layer_number = qp_load_image_mem(gfx_undef);
+                qp_drawimage_recolor(lcd_surface, 30, 5, layer_number, HSV_LAYER_UNDEF, HSV_BLACK);
+            }
 
-        led_usb_state.caps_lock ? qp_drawtext_recolor(lcd_surface, 5, LCD_HEIGHT - Retron27->line_height - 5, Retron27_underline, caps, HSV_CAPS_ON, HSV_BLACK) : qp_drawtext_recolor(lcd_surface, 5, LCD_HEIGHT - Retron27->line_height - 5, Retron27, caps, HSV_CAPS_OFF, HSV_BLACK);
-
-        last_led_usb_state = led_usb_state;
-        first_run_led = true;
-    }
-
-    if(last_layer_state != layer_state || first_run_layer == false) {
-        switch (get_highest_layer(layer_state|default_layer_state)) {
-        case 0:
-            layer_number = qp_load_image_mem(gfx_B);
-            qp_drawimage_recolor(lcd_surface, 5, 5, layer_number, HSV_LAYER_0, HSV_BLACK);
-            break;
-        case 1:
-            layer_number = qp_load_image_mem(gfx_C);
-            qp_drawimage_recolor(lcd_surface, 5, 5, layer_number, HSV_LAYER_1, HSV_BLACK);
-            break;
-        case 2:
-            layer_number = qp_load_image_mem(gfx_G);
-            qp_drawimage_recolor(lcd_surface, 5, 5, layer_number, HSV_LAYER_2, HSV_BLACK);
-            break;
-        case 3:
-            layer_number = qp_load_image_mem(gfx_N);
-            qp_drawimage_recolor(lcd_surface, 5, 5, layer_number, HSV_LAYER_3, HSV_BLACK);
-            break;
-        case 4:
-            layer_number = qp_load_image_mem(gfx_F);
-            qp_drawimage_recolor(lcd_surface, 5, 5, layer_number, HSV_LAYER_4, HSV_BLACK);
-            break;
-        case 5:
-            layer_number = qp_load_image_mem(gfx_navi);
-            qp_drawimage_recolor(lcd_surface, 5, 5, layer_number, HSV_LAYER_5, HSV_BLACK);
-            break;
-        case 6:
-            layer_number = qp_load_image_mem(gfx_M);
-            qp_drawimage_recolor(lcd_surface, 5, 5, layer_number, HSV_LAYER_6, HSV_BLACK);
-            break;
-        case 7:
-            layer_number = qp_load_image_mem(gfx_S);
-            qp_drawimage_recolor(lcd_surface, 5, 5, layer_number, HSV_LAYER_7, HSV_BLACK);
-            break;
-        default:
-            layer_number = qp_load_image_mem(gfx_undef);
-            qp_drawimage_recolor(lcd_surface, 5, 5, layer_number, HSV_LAYER_UNDEF, HSV_BLACK);
+            qp_close_image(layer_number);
+            last_layer_state = layer_state;
         }
-        qp_close_image(layer_number);
-        last_layer_state = layer_state;
-        first_run_layer = true;
-    }
-}
 
-// Called from halcyon.c
-void module_suspend_power_down_kb(void) {
-    qp_power(lcd, false);
-}
+        // CAGS modifier indicators
+        uint8_t current_mods = get_mods();
+        bool current_caps = host_keyboard_led_state().caps_lock;
 
-// Called from halcyon.c
-void module_suspend_wakeup_init_kb(void) {
-    qp_power(lcd, true);
-}
+        if (current_mods != last_mods || current_caps != last_caps || !first_run) {
+            painter_image_handle_t mod_icon;
 
-// Called from halcyon.c
-bool module_post_init_kb(void) {
-    // Turn on backlight
-    backlight_enable();
+            // Ctrl (top-left)
+            mod_icon = qp_load_image_mem(gfx_ctrl);
+            (current_mods & MOD_MASK_CTRL)
+                ? qp_drawimage_recolor(lcd_surface, MOD_COL1_X, MOD_ROW1_Y, mod_icon, HSV_MOD_ON, HSV_BLACK)
+                : qp_drawimage_recolor(lcd_surface, MOD_COL1_X, MOD_ROW1_Y, mod_icon, HSV_MOD_OFF, HSV_BLACK);
+            qp_close_image(mod_icon);
 
-    // Make the devices
-    lcd = qp_st7789_make_spi_device(LCD_WIDTH, LCD_HEIGHT, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, LCD_SPI_MODE);
-    lcd_surface = qp_make_rgb565_surface(LCD_WIDTH, LCD_HEIGHT, lcd_surface_fb);
+            // Alt (top-right)
+            mod_icon = qp_load_image_mem(gfx_alt);
+            (current_mods & MOD_MASK_ALT)
+                ? qp_drawimage_recolor(lcd_surface, MOD_COL2_X, MOD_ROW1_Y, mod_icon, HSV_MOD_ON, HSV_BLACK)
+                : qp_drawimage_recolor(lcd_surface, MOD_COL2_X, MOD_ROW1_Y, mod_icon, HSV_MOD_OFF, HSV_BLACK);
+            qp_close_image(mod_icon);
 
-    // Initialise the LCD
-    qp_init(lcd, LCD_ROTATION);
-    qp_set_viewport_offsets(lcd, LCD_OFFSET_X, LCD_OFFSET_Y);
-    qp_clear(lcd);
-    qp_rect(lcd, 0, 0, LCD_WIDTH - 1, LCD_HEIGHT - 1, HSV_BLACK, true);
-    qp_power(lcd, true);
-    qp_flush(lcd);
+            // GUI (bottom-left)
+            mod_icon = qp_load_image_mem(gfx_gui);
+            (current_mods & MOD_MASK_GUI)
+                ? qp_drawimage_recolor(lcd_surface, MOD_COL1_X, MOD_ROW2_Y, mod_icon, HSV_MOD_ON, HSV_BLACK)
+                : qp_drawimage_recolor(lcd_surface, MOD_COL1_X, MOD_ROW2_Y, mod_icon, HSV_MOD_OFF, HSV_BLACK);
+            qp_close_image(mod_icon);
 
-    // Initialise the LCD surface
-    qp_init(lcd_surface, LCD_ROTATION);
-    qp_rect(lcd_surface, 0, 0, LCD_WIDTH - 1, LCD_HEIGHT - 1, HSV_BLACK, true);
-    qp_surface_draw(lcd_surface, lcd, 0, 0, 0);
-    qp_flush(lcd);
+            // Shift / Caps Lock (bottom-right)
+            // Show caps lock icon when caps is on, shift icon otherwise
+            if (current_caps) {
+                mod_icon = qp_load_image_mem(gfx_caps);
+                qp_drawimage_recolor(lcd_surface, MOD_COL2_X, MOD_ROW2_Y, mod_icon, HSV_MOD_ON, HSV_BLACK);
+            } else {
+                mod_icon = qp_load_image_mem(gfx_shift);
+                (current_mods & MOD_MASK_SHIFT)
+                    ? qp_drawimage_recolor(lcd_surface, MOD_COL2_X, MOD_ROW2_Y, mod_icon, HSV_MOD_ON, HSV_BLACK)
+                    : qp_drawimage_recolor(lcd_surface, MOD_COL2_X, MOD_ROW2_Y, mod_icon, HSV_MOD_OFF, HSV_BLACK);
+            }
+            qp_close_image(mod_icon);
 
-    if(!module_post_init_user()) { return false; }
+            last_mods = current_mods;
+            last_caps = current_caps;
+        }
 
-    return true;
-}
-
-// Called from halcyon.c
-bool display_module_housekeeping_task_kb(bool second_display) {
-    if(!display_module_housekeeping_task_user(second_display)) { return false; }
-
-    if(!second_display) {
-        update_display();
+        first_run = true;
     }
 
-    // Move surface to lcd
+    // Write surface to physical LCD
     qp_surface_draw(lcd_surface, lcd, 0, 0, 0);
-    qp_flush(lcd);
 
-    return true;
+    return false;
 }
