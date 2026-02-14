@@ -83,3 +83,19 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [SYST] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______) }
 };
 #endif
+
+layer_state_t default_layer_state_set_user(layer_state_t state) {
+    uint8_t val = rgb_matrix_get_val();
+    switch (get_highest_layer(state)) {
+        case CST1:
+            rgb_matrix_sethsv_noeeprom(43, 255, val);  // yellow
+            break;
+        case GAME:
+            rgb_matrix_sethsv_noeeprom(0, 255, val);   // red
+            break;
+        default:
+            rgb_matrix_sethsv_noeeprom(RGB_MATRIX_DEFAULT_HUE, RGB_MATRIX_DEFAULT_SAT, val);
+            break;
+    }
+    return state;
+}
