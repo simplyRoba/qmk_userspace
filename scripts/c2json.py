@@ -130,6 +130,24 @@ def parse_keycodes(keycode_str: str) -> list[str]:
     return keycodes
 
 
+def parse_halcyon_buttons(source: str) -> dict[str, dict[str, list[str]]]:
+    tables = {}
+    layer_names = parse_layer_names(source)
+    for side in ("left", "right"):
+        match = re.search(
+            rf"\b{side}_halcyon_buttons\s*\[[^\]]*\]\s*\[\s*5\s*\]\s*=\s*\{{"
+            r"((?:[^{}]|\{[^{}]*\})*)\}\s*;",
+            source,
+        )
+        if match:
+            rows = {}
+            for layer, values in re.findall(r"\[\s*(\w+)\s*\]\s*=\s*\{([^{}]*)\}", match[1]):
+                keycodes = parse_keycodes(values)
+                rows[resolve_layer_ref(layer, layer_names)] = keycodes + ["KC_NO"] * (5 - len(keycodes))
+            tables[side] = rows
+    return tables
+
+
 def resolve_layer_ref(name: str, layer_names: dict[str, int]) -> str:
     """Replace enum layer name references with numeric indices in keycodes."""
     return str(layer_names.get(name, name))
@@ -182,14 +200,21 @@ def main() -> None:
 
     defines = parse_defines(source_no_comments)
     layer_names = parse_layer_names(source_no_comments)
-    layout_name = args.layout or extract_layout_name(source_no_comments)
+    physical_layout_name = args.layout or extract_layout_name(source_no_comments)
     keymaps_block = extract_keymaps_block(source_no_comments)
-    raw_layers = split_layers(keymaps_block, layout_name)
+    raw_layers = split_layers(keymaps_block, physical_layout_name)
+    buttons = parse_halcyon_buttons(source_no_comments)
+    layout_name = physical_layout_name
+    if buttons:
+        layout_name += "_hlc"
 
     layers = []
     ordered_names = []
     for layer_name, keycode_str in raw_layers:
         keycodes = parse_keycodes(keycode_str)
+        if buttons:
+            for side in ("left", "right"):
+                keycodes += buttons.get(side, {}).get(resolve_layer_ref(layer_name, layer_names), ["KC_NO"] * 5)
         expanded = [expand_defines(kc, defines) for kc in keycodes]
         resolved = [resolve_keycode(kc, layer_names) for kc in expanded]
         layers.append(resolved)
