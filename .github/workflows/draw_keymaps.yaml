@@ -37,6 +37,10 @@ jobs:
             keymap parse -q "$json_file" -l $layer_names \
               | keymap draw - -j "$layout_json" -o "$output"
 
+            python3 -c \
+              'from pathlib import Path; import sys; p = Path(sys.argv[1]); p.write_bytes(p.read_bytes().decode("utf-8").encode("ascii", "xmlcharrefreplace"))' \
+              "$output"
+
             echo "Generated $output"
           }
 
