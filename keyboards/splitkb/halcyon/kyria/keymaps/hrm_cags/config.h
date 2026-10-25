@@ -2,6 +2,9 @@
 
 #define TAPPING_TERM 190
 
+// Prefer the character over its modifier or layer when pressed less than 100 ms after typing.
+#define FLOW_TAP_TERM 100
+
 // Activate the modifier or layer when another key is tapped while this key stays pressed.
 #define PERMISSIVE_HOLD
 
