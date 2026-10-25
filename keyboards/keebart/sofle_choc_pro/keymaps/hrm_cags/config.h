@@ -9,9 +9,17 @@
 #define SPLIT_WATCHDOG_ENABLE
 #undef RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT
 
-#define PERMISSIVE_HOLD
-#define CHORDAL_HOLD
 #define TAPPING_TERM 190
+
+// Prefer the character over its modifier or layer when pressed less than 100 ms after typing.
+#define FLOW_TAP_TERM 100
+
+// Activate the modifier or layer when another key is tapped while this key stays pressed.
+#define PERMISSIVE_HOLD
+
+// Keep quick overlapping letters on the same hand from activating modifiers.
+#define CHORDAL_HOLD
+
 #define RGB_MATRIX_TIMEOUT 300000
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_GRADIENT_UP_DOWN
 #define RGB_MATRIX_DEFAULT_HUE 115
