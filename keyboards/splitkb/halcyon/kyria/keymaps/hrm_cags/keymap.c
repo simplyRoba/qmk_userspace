@@ -12,6 +12,18 @@ enum layers {
     SYST,       // system
 };
 
+#ifdef FLOW_TAP_TERM
+uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_keycode) {
+    if (get_tap_keycode(keycode) == KC_SPC) {
+        return 0;
+    }
+    if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
+        return FLOW_TAP_TERM;
+    }
+    return 0;
+}
+#endif
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT_split_3x6_5(
         KC_TAB,  KC_Q,         KC_W,         KC_E,         KC_R,         KC_T,                                                                KC_Y,            KC_U,         KC_I,         KC_O,         KC_P,            KC_BSLS,
